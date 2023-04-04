@@ -3,7 +3,7 @@ import * as ActionTypes from './actionTypes'
 import { call, put, select, takeEvery, takeLeading } from 'redux-saga/effects';
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
-const host = "chatweb-production-f3bc.up.railway.app/"
+const host = "https://chatweb-production-f3bc.up.railway.app/"
 const fetchAPI = (method, url, data) => {
     return axios({
         method: method,
@@ -59,9 +59,9 @@ function* workerRegister(action) {
     try {
         const { password, email, username } = action.data
         if (password && email && username) {
-            console.log(action.data,'action data')
+            console.log(action.data, 'action data')
             const dataApi = yield call(fetchAPI, 'post', 'api/auth/register', { password, email, username })
-            console.log(dataApi,'data api clients')
+            console.log(dataApi, 'data api clients')
             const { data } = dataApi
             if (data.status) {
                 sessionStorage.setItem("USER", JSON.stringify(data.newUser));
