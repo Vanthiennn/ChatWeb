@@ -37,7 +37,7 @@ const server = app.listen(PORT, () => console.log(`Server running on PORT ${PORT
 
 const io = socket(server, {
     cors: {
-        origin: "https://chat-web-realtime.vercel.app/",
+        origin: "https://chat-web-realtime.vercel.app",
         credentials: true,
     }
 })
