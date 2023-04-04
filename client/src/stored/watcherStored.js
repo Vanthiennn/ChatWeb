@@ -3,7 +3,7 @@ import * as ActionTypes from './actionTypes'
 import { call, put, select, takeEvery, takeLeading } from 'redux-saga/effects';
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
-const host = "http://api-chat-web.vercel.app/"
+const host = "chatweb-production-f3bc.up.railway.app/"
 const fetchAPI = (method, url, data) => {
     return axios({
         method: method,
