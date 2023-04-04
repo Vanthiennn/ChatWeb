@@ -16,6 +16,12 @@ app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
+
+app.use('/api/auth', authRoutes)
+app.use('/api/user', userRoutes)
+app.use('/api/message', messageRoutes)
+
+const server = app.listen(PORT, () => console.log(`Server running on PORT ${PORT}`))
 mongoose
     .connect(process.env.MONGO_URL, {
         useNewUrlParser: true,
@@ -27,12 +33,6 @@ mongoose
     .catch((err) => {
         console.log(err, 'err')
     })
-
-app.use('/api/auth', authRoutes)
-app.use('/api/user', userRoutes)
-app.use('/api/message', messageRoutes)
-
-const server = app.listen(PORT, () => console.log(`Server running on PORT ${PORT}`))
 
 const io = socket(server, {
     cors: {
