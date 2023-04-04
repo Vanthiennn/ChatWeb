@@ -10,7 +10,7 @@ import Welcome from '../components/Welcome'
 import ChatContainer from '../components/ChatContainer'
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-const socketClients = io("https://chat-web-ecru-mu.vercel.app/")
+const socketClients = io("https://chat-web-vanthiennn.vercel.app")
 export default function Chat({ isOnline }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
