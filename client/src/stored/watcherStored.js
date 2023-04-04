@@ -144,7 +144,7 @@ function* workerGetMessage(action) {
                     action.setLoading(true)
                 }
             }
-        }
+        } 
     } catch (err) {
         toast.error('Error connecting to Server. Please try again', toastOptions);
     }

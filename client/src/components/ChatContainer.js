@@ -6,15 +6,25 @@ import ChatInput from "./ChatInput";
 import './chat.scss'
 import { io } from 'socket.io-client'
 import Logout from "./Logout";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const socketClients = io("https://chatweb-production-f3bc.up.railway.app")
 export default function ChatContainer({ user, currentChat, room, isOnline }) {
+  const toastOptions = {
+    position: "top-center",
+    autoClose: 5000,
+    pauseOnHover: true,
+    draggable: true,
+    theme: "light",
+  };
   const message = useSelector(state => {
     const data = state.StoredReducer.message
     return data && Array.isArray(data) && data.length > 0 ? data : []
   }, (prev, next) => isEqual(prev, next));
   const scrollRef = useRef()
   const dispatch = useDispatch()
-  const [loading,setLoading] = useState(false)
+  const [loading, setLoading] = useState(false)
+
   useEffect(() => {
     if (user._id && currentChat._id) {
       dispatch({
@@ -53,40 +63,43 @@ export default function ChatContainer({ user, currentChat, room, isOnline }) {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" })
   }, [message])
   return (
-    <div className="chat-container">
-      <div className="chat-header">
-        <div className="user-details">
-          <div className="avatar">
-            {currentChat && currentChat.avatarImage ?
-              <img
-                src={`data:image/svg+xml;base64,${currentChat.avatarImage}`}
-                alt=""
-              />
-              : ''}
+    <React.Fragment>
+      <div className="chat-container">
+        <div className="chat-header">
+          <div className="user-details">
+            <div className="avatar">
+              {currentChat && currentChat.avatarImage ?
+                <img
+                  src={`data:image/svg+xml;base64,${currentChat.avatarImage}`}
+                  alt=""
+                />
+                : ''}
+            </div>
+            <div className="username">
+              <h3>{currentChat && currentChat.username ? currentChat.username : ''}</h3>
+            </div>
           </div>
-          <div className="username">
-            <h3>{currentChat && currentChat.username ? currentChat.username : ''}</h3>
-          </div>
+          <Logout user={user} />
         </div>
-        <Logout user={user} />
-      </div>
-      <div className={`chat-messages ${loading ? '' : 'hideChat'}`}>
-        {message && message.length > 0 ? message.map((item, index) => {
-          return (
-            <div ref={scrollRef} key={index}>
-              <div
-                className={`message ${item && item.fromSelf ? "sended" : "recieved"
-                  }`}
-              >
-                <div className="content ">
-                  <p>{item && item.msg ? item.msg : ''}</p>
+        <div className={`chat-messages ${loading ? '' : 'hideChat'}`}>
+          {message && message.length > 0 ? message.map((item, index) => {
+            return (
+              <div ref={scrollRef} key={index}>
+                <div
+                  className={`message ${item && item.fromSelf ? "sended" : "recieved"
+                    }`}
+                >
+                  <div className="content ">
+                    <p>{item && item.msg ? item.msg : ''}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          );
-        }) : null}
+            );
+          }) : null}
+        </div>
+        <ChatInput handleSendMess={handleSendMess} isOnline={isOnline} />
+        <ToastContainer />
       </div>
-      <ChatInput handleSendMess={handleSendMess} isOnline={isOnline} />
-    </div>
+    </React.Fragment>
   )
 }

@@ -39,8 +39,7 @@ export default function Chat({ isOnline }) {
     const data = state.StoredReducer.listUser
     return data && Array.isArray(data) && data.length > 0 ? data : []
   }, (prev, next) => isEqual(prev, next));
-
-
+  
 
   const handleChange = (chat) => {
     setCurrentChat(chat)
