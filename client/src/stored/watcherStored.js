@@ -60,6 +60,7 @@ function* workerRegister(action) {
         const { password, email, username } = action.data
         if (password && email && username) {
             const dataApi = yield call(fetchAPI, 'post', 'api/auth/register', { password, email, username })
+            console.log(dataApi,'data api clients')
             const { data } = dataApi
             if (data.status) {
                 sessionStorage.setItem("USER", JSON.stringify(data.newUser));
