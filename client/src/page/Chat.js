@@ -10,7 +10,7 @@ import Welcome from '../components/Welcome'
 import ChatContainer from '../components/ChatContainer'
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-const socketClients = io("http://localhost:5000")
+const socketClients = io("http://chatweb-production-f3bc.up.railway.app")
 export default function Chat({ isOnline }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
