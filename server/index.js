@@ -28,7 +28,9 @@ mongoose
         console.log(err, 'err')
     })
 
-
+app.use('/', (req, res) => {
+    res.json({ message: 'Hello From Express' })
+})
 app.use('/api/auth', authRoutes)
 app.use('/api/user', userRoutes)
 app.use('/api/message', messageRoutes)
