@@ -28,9 +28,6 @@ mongoose
         console.log(err, 'err')
     })
 
-app.use('/', (req, res) => {
-    res.json({ message: 'Hello From Express' })
-})
 app.use('/api/auth', authRoutes)
 app.use('/api/user', userRoutes)
 app.use('/api/message', messageRoutes)
@@ -51,7 +48,6 @@ io.on("connection", (socket) => {
         const { from, to } = data
         const users = [from, to]
         const existingRoom = await Room.findOne({
-
             $or: [
                 { users },
                 { users: [to, from] }
@@ -67,9 +63,7 @@ io.on("connection", (socket) => {
             })
         }
     })
-
     socket.on("send-msg", (data) => {
-        console.log(data, 'dataaa')
         io.to(`${data.roomID}`).emit("msg-receive", data)
     })
 })
