@@ -1,0 +1,29 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Chat Real Time",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "test": "nodemon",
+    "dev": "nodemon index"
+  },
+  "keywords": [
+    "chat",
+    "realtime"
+  ],
+  "author": "Van Thien",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.17.2",
+    "mongoose": "^7.0.1",
+    "socket.io": "^4.6.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.21"
+  }
+}
