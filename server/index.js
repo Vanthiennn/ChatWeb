@@ -23,7 +23,6 @@ mongoose
     })
     .then(() => {
         console.log('DB Connection success')
-        app.listen(PORT, () => console.log(`Server running on PORT ${PORT}`))
     })
     .catch((err) => {
         console.log(err, 'err')
@@ -34,10 +33,11 @@ app.use('/api/auth', authRoutes)
 app.use('/api/user', userRoutes)
 app.use('/api/message', messageRoutes)
 
+const server = app.listen(PORT, () => console.log(`Server running on PORT ${PORT}`))
 
 const io = socket(server, {
     cors: {
-        origin: "https://localhost:3000/",
+        origin: "https://chat-web-realtime.vercel.app/",
         credentials: true,
     }
 })
@@ -45,7 +45,7 @@ const io = socket(server, {
 global.onlineUsers = new Map();
 
 io.on("connection", (socket) => {
-
+   
     socket.on("join_room", async data => {
         const { from, to } = data
         const users = [from, to]
@@ -66,7 +66,7 @@ io.on("connection", (socket) => {
             })
         }
     })
-
+   
     socket.on("send-msg", (data) => {
         console.log(data, 'dataaa')
         io.to(`${data.roomID}`).emit("msg-receive", data)
