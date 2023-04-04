@@ -37,7 +37,7 @@ const server = app.listen(PORT, () => console.log(`Server running on PORT ${PORT
 
 const io = socket(server, {
     cors: {
-        origin: "http://localhost:3000",
+        origin: "https://chat-web-realtime.vercel.app/",
         credentials: true,
     }
 })
@@ -66,10 +66,7 @@ io.on("connection", (socket) => {
             })
         }
     })
-    // socket.on("add-user", (userId) => {
-    //     onlineUsers.set(userId, socket.id)
-    // })
-
+   
     socket.on("send-msg", (data) => {
         console.log(data, 'dataaa')
         io.to(`${data.roomID}`).emit("msg-receive", data)
