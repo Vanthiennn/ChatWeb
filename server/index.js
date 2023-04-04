@@ -37,7 +37,7 @@ const server = app.listen(PORT, () => console.log(`Server running on PORT ${PORT
 
 const io = socket(server, {
     cors: {
-        origin: "https://chat-web-ecru-mu.vercel.app/",
+        origin: "https://chat-web-realtime.vercel.app/",
         credentials: true,
     }
 })
@@ -45,7 +45,7 @@ const io = socket(server, {
 global.onlineUsers = new Map();
 
 io.on("connection", (socket) => {
-   
+
     socket.on("join_room", async data => {
         const { from, to } = data
         const users = [from, to]
@@ -66,7 +66,7 @@ io.on("connection", (socket) => {
             })
         }
     })
-   
+
     socket.on("send-msg", (data) => {
         console.log(data, 'dataaa')
         io.to(`${data.roomID}`).emit("msg-receive", data)
