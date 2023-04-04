@@ -59,6 +59,7 @@ function* workerRegister(action) {
     try {
         const { password, email, username } = action.data
         if (password && email && username) {
+            console.log(action.data,'action data')
             const dataApi = yield call(fetchAPI, 'post', 'api/auth/register', { password, email, username })
             console.log(dataApi,'data api clients')
             const { data } = dataApi
