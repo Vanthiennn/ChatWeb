@@ -69,7 +69,6 @@ export default function Chat({ isOnline }) {
                 data: {
                   users: [user._id, currentChat._id],
                   roomID: data.roomID,
-                  msg: data.msg,
                 },
                 ttype: 'socket',
               })

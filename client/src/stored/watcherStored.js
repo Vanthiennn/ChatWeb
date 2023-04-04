@@ -127,26 +127,21 @@ function* workerSetAvatar(action) {
 
 function* workerGetMessage(action) {
     try {
-        const { users, roomID, msg } = action.data
+        const { users, roomID } = action.data
         if (roomID) {
-            let oldMess = yield select(state => state.StoredReducer.message)
             const dataApi = yield call(fetchAPI, 'post', `api/message/getmsg/`, { users, roomID })
             const { data } = dataApi
             if (dataApi.status === 200) {
-                if (action.ttype === 'socket') {
-                    const mergeData = [...oldMess]
-                    mergeData.push({ fromSelf: false, msg })
-                    yield put({
-                        type: ActionTypes.MESSAGE,
-                        data: mergeData,
-                        ttype: action.ttype
-                    })
-                } else {
-                    yield put({
-                        type: ActionTypes.MESSAGE,
-                        data: data,
-                        ttype: action.ttype
-                    })
+                yield put({
+                    type: ActionTypes.MESSAGE,
+                    data: data,
+                    ttype: action.ttype
+                })
+
+            }
+            if (action.ttype === 'fetch-data') {
+                if (action.setLoading) {
+                    action.setLoading(true)
                 }
             }
         }

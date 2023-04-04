@@ -14,6 +14,7 @@ export default function ChatContainer({ user, currentChat, room, isOnline }) {
   }, (prev, next) => isEqual(prev, next));
   const scrollRef = useRef()
   const dispatch = useDispatch()
+  const [loading,setLoading] = useState(false)
   useEffect(() => {
     if (user._id && currentChat._id) {
       dispatch({
@@ -23,6 +24,7 @@ export default function ChatContainer({ user, currentChat, room, isOnline }) {
           roomID: room._id
         },
         ttype: 'fetch-data',
+        setLoading,
       })
     }
   }, [currentChat, room])
@@ -50,7 +52,6 @@ export default function ChatContainer({ user, currentChat, room, isOnline }) {
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" })
   }, [message])
- 
   return (
     <div className="chat-container">
       <div className="chat-header">
@@ -69,7 +70,7 @@ export default function ChatContainer({ user, currentChat, room, isOnline }) {
         </div>
         <Logout user={user} />
       </div>
-      <div className="chat-messages">
+      <div className={`chat-messages ${loading ? '' : 'hideChat'}`}>
         {message && message.length > 0 ? message.map((item, index) => {
           return (
             <div ref={scrollRef} key={index}>
