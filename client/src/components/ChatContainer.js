@@ -6,7 +6,7 @@ import ChatInput from "./ChatInput";
 import './chat.scss'
 import { io } from 'socket.io-client'
 import Logout from "./Logout";
-const socketClients = io("https://chat-web-vanthiennn.vercel.app/")
+const socketClients = io("http://localhost:5000/")
 export default function ChatContainer({ user, currentChat, room, isOnline }) {
   const message = useSelector(state => {
     const data = state.StoredReducer.message
