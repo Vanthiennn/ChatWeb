@@ -33,7 +33,7 @@ function App() {
         <Route exact path="/login" element={<Login isOnline={isOnline} />} />
         <Route exact path="/setAvatar" element={<SetAvatar isOnline={isOnline} />} />
         <Route exact path="/" element={<Chat isOnline={isOnline} />} />
-        <Route exactpath="*" element={<PageNotFound isOnline={isOnline} />} />
+        <Route exact path="*" element={<PageNotFound isOnline={isOnline} />} />
       </Routes>
     </Router>
   );
