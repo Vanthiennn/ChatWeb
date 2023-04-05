@@ -111,6 +111,7 @@ function* workerSetAvatar(action) {
                 const isAvatarImageSet = true;
                 const avatarImage = data.image;
                 const newInfo = { ...oldInfo, isAvatarImageSet, avatarImage }
+                sessionStorage.setItem("USER", JSON.stringify(newInfo));
                 yield put({
                     type: ActionTypes.LOG_IN_SUCCESS,
                     data: newInfo
@@ -144,7 +145,7 @@ function* workerGetMessage(action) {
                     action.setLoading(true)
                 }
             }
-        } 
+        }
     } catch (err) {
         toast.error('Error connecting to Server. Please try again', toastOptions);
     }

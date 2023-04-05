@@ -49,7 +49,6 @@ export default function Chat({ isOnline }) {
       navigate('/login')
     }
   }, [])
-
   useEffect(() => {
     try {
       if (user) {
