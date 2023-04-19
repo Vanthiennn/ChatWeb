@@ -58,9 +58,11 @@ io.on("connection", (socket) => {
             socket.emit("room-receive", existingRoom)
             socket.join(existingRoom._id.toString());
         } else {
-            await Room.create({
+            const data = await Room.create({
                 users: [from, to],
             })
+            socket.emit("room-receive", data)
+            socket.join(data._id.toString());
         }
     })
     socket.on("send-msg", (data) => {

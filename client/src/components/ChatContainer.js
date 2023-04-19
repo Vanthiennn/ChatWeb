@@ -70,8 +70,8 @@ export default function ChatContainer({ user, currentChat, room, isOnline }) {
             <div className="avatar">
               {currentChat && currentChat.avatarImage ?
                 <img
-                  src={`data:image/svg+xml;base64,${currentChat.avatarImage}`}
-                  alt=""
+                  src={currentChat.avatarImage}
+                  alt="avatar Image"
                 />
                 : ''}
             </div>

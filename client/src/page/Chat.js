@@ -28,7 +28,6 @@ export default function Chat({ isOnline }) {
     const data = state.StoredReducer.user
     return data && typeof data === 'object' && Object.keys(data).length > 0 ? data : {}
   }, (prev, next) => isEqual(prev, next));
-
   useEffect(() => {
     if (!isOnline) {
       toast.error('No internet, please try again', toastOptions)
@@ -55,6 +54,7 @@ export default function Chat({ isOnline }) {
         socketClients.on("connect", () => {
         })
         socketClients.on("room-receive", (data) => {
+          console.log(data,'dataaa')
           if (data) {
             setRoomID(data)
           }
@@ -97,7 +97,7 @@ export default function Chat({ isOnline }) {
       }
     }
   }, [user])
-
+  console.log(roomID,'roomID')
   return (
     <React.Fragment>
       <div className='chat'>

@@ -6,7 +6,7 @@ export default function ListContacts({ user, listUser, changeChat, socketClients
   const [currentUserName, setCurrentUserName] = useState(undefined);
   const [currentUserImage, setCurrentUserImage] = useState(undefined);
   const [currentSelected, setCurrentSelected] = useState(undefined);
- 
+
   useEffect(() => {
     if (user && Object.keys(user).length > 0) {
       if (user.username && user.avatarImage) {
@@ -21,8 +21,11 @@ export default function ListContacts({ user, listUser, changeChat, socketClients
       setCurrentSelected(index)
       changeChat(contact)
       socketClients.emit("join_room", { from: user._id, to: contact._id })
+      return () => {
+        socketClients.off("join_room")
+      }
     } catch (err) {
-     
+
     }
   }
 
@@ -47,7 +50,7 @@ export default function ListContacts({ user, listUser, changeChat, socketClients
                   >
                     <div className="avatar">
                       <img
-                        src={`data:image/svg+xml;base64,${item.avatarImage}`}
+                        src={item.avatarImage}
                         alt=""
                       />
                     </div>
@@ -62,7 +65,7 @@ export default function ListContacts({ user, listUser, changeChat, socketClients
           <div className="current-user">
             <div className="avatar">
               {currentUserImage ? <img
-                src={`data:image/svg+xml;base64,${currentUserImage}`}
+                src={currentUserImage}
                 alt="avatar"
               /> : ''}
 
