@@ -54,7 +54,7 @@ export default function Chat({ isOnline }) {
         socketClients.on("connect", () => {
         })
         socketClients.on("room-receive", (data) => {
-          console.log(data,'dataaa')
+
           if (data) {
             setRoomID(data)
           }
@@ -97,7 +97,6 @@ export default function Chat({ isOnline }) {
       }
     }
   }, [user])
-  console.log(roomID,'roomID')
   return (
     <React.Fragment>
       <div className='chat'>
